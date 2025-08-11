@@ -1,7 +1,6 @@
 package be.com.catalogservice.persistence;
 
 import be.com.catalogservice.domain.Book;
-import be.com.catalogservice.domain.BookAlreadyExistsException;
 import be.com.catalogservice.domain.BookRepository;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +31,8 @@ public class InMemoryBookRepository implements BookRepository {
 
     @Override
     public Book save(Book book) {
-        return books.put(book.isbn(), book);
+        books.put(book.isbn(), book);
+        return books.get(book.isbn());
     }
 
     @Override

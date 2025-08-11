@@ -4,8 +4,6 @@ import be.com.catalogservice.domain.Book;
 import be.com.catalogservice.domain.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
