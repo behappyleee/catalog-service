@@ -1,6 +1,7 @@
 package be.com.catalogservice.persistence;
 
 import be.com.catalogservice.domain.Book;
+import be.com.catalogservice.domain.BookAlreadyExistsException;
 import be.com.catalogservice.domain.BookRepository;
 import org.springframework.stereotype.Repository;
 

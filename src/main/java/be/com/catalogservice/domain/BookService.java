@@ -2,7 +2,6 @@ package be.com.catalogservice.domain;
 
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 
 @Service
 public class BookService {
@@ -19,8 +18,32 @@ public class BookService {
 
     public Book viewBookDetails(String isbn) {
         return bookRepository.findByIsbn(isbn)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Book with isbn %s not found", isbn)));
+                .orElseThrow(() -> new BookNotFoundException(String.format("Book ISBN %s was not found", isbn)));
     }
 
+    public Book addBookToCatalog(Book book) {
+        if (bookRepository.existsByIsbn(book.isbn())) {
+            throw new BookAlreadyExistsException(String.format("Book with isbn %s already exists", book.isbn()));
+        }
+        return bookRepository.save(book);
+    }
+
+    public void removeBookFromCatalog(String isbn) {
+        bookRepository.deleteByIsbn(isbn);
+    }
+
+    public Book editBookDetails(String isbn, Book book) {
+        return bookRepository.findByIsbn(isbn)
+                .map(existingBook -> {
+                    var bookToUpdate = new Book(
+                            existingBook.isbn(),
+                            book.title(),
+                            book.author(),
+                            book.price()
+                    );
+
+                    return bookRepository.save(bookToUpdate);
+                }).orElseGet(() -> addBookToCatalog(book));
+    }
 }
 
