@@ -19,6 +19,9 @@ configurations {
     }
 }
 
+bootRun {
+    systemProperty 'spring.profiles.active', 'testdata'
+}
 
 repositories {
     mavenCentral()
