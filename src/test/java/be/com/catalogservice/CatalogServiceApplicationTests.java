@@ -18,7 +18,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     void whenPostRequestThenBookCreated() {
-        var extectedBook = new Book("1111111111", "Title", "Author", 9.90);
+        var extectedBook = Book.of("1111111111", "Title", "Author", 9.90);
 
         webTestClient
             .post()
